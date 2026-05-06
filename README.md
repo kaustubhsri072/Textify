@@ -7,6 +7,7 @@ IMPORTANT: You need a Spotify premium subscription in order to use this tool!
 ## ✨ Features
 
 - **Easy Export:** Quickly convert any Spotify playlist into a text document.
+- **Easy Import:** Quickly import any Textify stle .txt file into Textify and automatically import playlists into your Spotify account.
 - **Beautiful Formatting:** Exports are cleanly formatted and easy to read.
 - **Simple Interface:** An intuitive, modern design that gets out of your way.
 - **Offline Backups:** Keep a permanent, offline record of your favorite playlists.
