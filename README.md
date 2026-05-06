@@ -11,6 +11,7 @@ IMPORTANT: You need a Spotify premium subscription in order to use this tool!
 - **Beautiful Formatting:** Exports are cleanly formatted and easy to read.
 - **Simple Interface:** An intuitive, modern design that gets out of your way.
 - **Offline Backups:** Keep a permanent, offline record of your favorite playlists.
+- **Deletion:** Playlists imported using the playlist link won't be deleted from Spotify when deleted on Textify! Only playlists imported using the .txt file will be deleted from Spotify when deleted on Textify.
 
 ## 🛠️ Built With
 

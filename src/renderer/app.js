@@ -222,6 +222,7 @@ async function importPlaylist() {
   hideLoading();
 
   if (result.success) {
+    result.playlist.source = 'link';
     state.playlists.push(result.playlist);
     inputPlaylistUrl.value = '';
     
@@ -265,6 +266,7 @@ async function importFromText() {
     const importResult = await textifyAPI.createPlaylistFromText(filePath, chosenName);
     
     if (importResult.success) {
+      importResult.playlist.source = 'text-import';
       state.playlists.push(importResult.playlist);
       lastPlaylistId = importResult.playlist.id;
       successCount++;
@@ -355,31 +357,39 @@ function renderSidebar() {
     deleteBtn.addEventListener('click', async (e) => {
       e.stopPropagation();
       
-      showLoading('Removing from Spotify...');
-      
       try {
-        // 1. Delete from Spotify (Unfollow)
-        const result = await textifyAPI.deletePlaylist(pl.id);
-        
-        if (result.success) {
-          // 2. Update local state
-          state.playlists = state.playlists.filter((p) => p.id !== pl.id);
+        // Only delete from Spotify if the playlist was created via text import
+        if (pl.source === 'text-import') {
+          showLoading('Removing from Spotify...');
+          const result = await textifyAPI.deletePlaylist(pl.id);
           
-          if (state.selectedPlaylistId === pl.id) {
-            state.selectedPlaylistId = null;
-            trackView.classList.add('hidden');
-            mainEmpty.classList.remove('hidden');
+          if (!result.success) {
+            showToast(result.error || 'Failed to delete from Spotify', 'error');
+            hideLoading();
+            return;
           }
-          
-          // 3. Persist local changes
-          textifyAPI.savePlaylists(state.playlists);
-          renderSidebar();
+        }
+
+        // Update local state
+        state.playlists = state.playlists.filter((p) => p.id !== pl.id);
+        
+        if (state.selectedPlaylistId === pl.id) {
+          state.selectedPlaylistId = null;
+          trackView.classList.add('hidden');
+          mainEmpty.classList.remove('hidden');
+        }
+        
+        // Persist local changes
+        textifyAPI.savePlaylists(state.playlists);
+        renderSidebar();
+        
+        if (pl.source === 'text-import') {
           showToast(`Deleted "${pl.name}" from Spotify`, 'success');
         } else {
-          showToast(result.error || 'Failed to delete from Spotify', 'error');
+          showToast(`Removed "${pl.name}" from Textify`, 'success');
         }
       } catch (err) {
-        showToast('Error syncing with Spotify', 'error');
+        showToast('Error removing playlist', 'error');
       } finally {
         hideLoading();
       }
