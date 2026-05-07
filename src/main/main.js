@@ -6,13 +6,16 @@ const store = require('./store');
 
 let mainWindow;
 
+const isMac = process.platform === 'darwin';
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 850,
     minWidth: 900,
     minHeight: 700,
-    frame: false,
+    frame: isMac ? true : false,
+    titleBarStyle: isMac ? 'hiddenInset' : 'default',
     backgroundColor: '#0a0a0f',
     icon: path.join(__dirname, '../../assets/icon.png'),
     webPreferences: {

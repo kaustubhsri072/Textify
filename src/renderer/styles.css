@@ -604,6 +604,15 @@ a:hover {
   display: flex;
 }
 
+/* Mac Titlebar Support */
+body.is-mac #titlebar {
+  padding-left: 75px; /* Leave space for macOS traffic lights */
+}
+
+body.is-mac .titlebar-controls {
+  display: none;
+}
+
 /* ─── Sidebar ─── */
 #sidebar {
   width: var(--sidebar-width);
@@ -954,6 +963,18 @@ a:hover {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+#track-view {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+#track-view.hidden {
+  display: none !important;
 }
 
 .empty-main-state {

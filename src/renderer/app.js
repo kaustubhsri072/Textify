@@ -88,9 +88,13 @@ const loadingText = $('#loading-text');
 const toastContainer = $('#toast-container');
 
 // ─── Window Controls ─────────────────────────────────────────
-$('#btn-minimize').addEventListener('click', () => textifyAPI.minimize());
-$('#btn-maximize').addEventListener('click', () => textifyAPI.maximize());
-$('#btn-close').addEventListener('click', () => textifyAPI.close());
+if (textifyAPI.platform === 'darwin') {
+  document.body.classList.add('is-mac');
+} else {
+  $('#btn-minimize').addEventListener('click', () => textifyAPI.minimize());
+  $('#btn-maximize').addEventListener('click', () => textifyAPI.maximize());
+  $('#btn-close').addEventListener('click', () => textifyAPI.close());
+}
 
 // ─── Setup: Step Navigation ─────────────────────────────────
 function goToStep(stepNum) {
