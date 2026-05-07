@@ -1,12 +1,13 @@
 {
   "name": "textify",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Convert your Spotify playlists into beautifully formatted text files",
   "main": "src/main/main.js",
   "scripts": {
     "start": "electron .",
     "dev": "electron .",
-    "build": "electron-builder --win",
+    "build": "electron-builder --win --mac",
+    "build:win": "electron-builder --win",
     "build:mac": "electron-builder --mac",
     "pack": "electron-builder --dir"
   },
@@ -30,7 +31,9 @@
       "target": [
         {
           "target": "nsis",
-          "arch": ["x64"]
+          "arch": [
+            "x64"
+          ]
         }
       ],
       "icon": "assets/icon.png"
@@ -39,7 +42,9 @@
       "target": [
         {
           "target": "dmg",
-          "arch": ["universal"]
+          "arch": [
+            "universal"
+          ]
         }
       ],
       "icon": "assets/icon.png",
@@ -49,8 +54,16 @@
       "title": "Textify",
       "icon": "assets/icon.png",
       "contents": [
-        { "x": 130, "y": 220 },
-        { "x": 410, "y": 220, "type": "link", "path": "/Applications" }
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
       ]
     },
     "nsis": {
